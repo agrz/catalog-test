@@ -12,9 +12,15 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { ValidateNested, IsOptional, IsNumber, IsInt } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsNumber,
+  IsBoolean,
+  IsInt,
+} from "class-validator";
 import { Type } from "class-transformer";
-import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { ProductCreateNestedManyWithoutOrdersInput } from "./ProductCreateNestedManyWithoutOrdersInput";
 
 @InputType()
 class OrderCreateInput {
@@ -43,15 +49,26 @@ class OrderCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductWhereUniqueInput,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(() => ProductWhereUniqueInput)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => ProductWhereUniqueInput, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  product?: ProductWhereUniqueInput | null;
+  priority?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductCreateNestedManyWithoutOrdersInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductCreateNestedManyWithoutOrdersInput)
+  @IsOptional()
+  @Field(() => ProductCreateNestedManyWithoutOrdersInput, {
+    nullable: true,
+  })
+  product?: ProductCreateNestedManyWithoutOrdersInput;
 
   @ApiProperty({
     required: false,

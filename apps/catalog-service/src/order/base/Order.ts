@@ -17,6 +17,7 @@ import {
   IsOptional,
   IsNumber,
   IsString,
+  IsBoolean,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -63,12 +64,23 @@ class Order {
 
   @ApiProperty({
     required: false,
-    type: () => Product,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  priority!: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Product],
   })
   @ValidateNested()
   @Type(() => Product)
   @IsOptional()
-  product?: Product | null;
+  product?: Array<Product>;
 
   @ApiProperty({
     required: false,

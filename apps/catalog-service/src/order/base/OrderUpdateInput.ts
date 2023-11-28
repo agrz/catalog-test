@@ -12,9 +12,15 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-import { ValidateNested, IsOptional, IsNumber, IsInt } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsNumber,
+  IsBoolean,
+  IsInt,
+} from "class-validator";
 import { Type } from "class-transformer";
-import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { ProductUpdateManyWithoutOrdersInput } from "./ProductUpdateManyWithoutOrdersInput";
 
 @InputType()
 class OrderUpdateInput {
@@ -43,15 +49,26 @@ class OrderUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductWhereUniqueInput,
+    type: Boolean,
   })
-  @ValidateNested()
-  @Type(() => ProductWhereUniqueInput)
+  @IsBoolean()
   @IsOptional()
-  @Field(() => ProductWhereUniqueInput, {
+  @Field(() => Boolean, {
     nullable: true,
   })
-  product?: ProductWhereUniqueInput | null;
+  priority?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProductUpdateManyWithoutOrdersInput,
+  })
+  @ValidateNested()
+  @Type(() => ProductUpdateManyWithoutOrdersInput)
+  @IsOptional()
+  @Field(() => ProductUpdateManyWithoutOrdersInput, {
+    nullable: true,
+  })
+  product?: ProductUpdateManyWithoutOrdersInput;
 
   @ApiProperty({
     required: false,

@@ -1,10 +1,11 @@
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
-import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { ProductUpdateManyWithoutOrdersInput } from "./ProductUpdateManyWithoutOrdersInput";
 
 export type OrderUpdateInput = {
   customer?: CustomerWhereUniqueInput | null;
   discount?: number | null;
-  product?: ProductWhereUniqueInput | null;
+  priority?: boolean | null;
+  product?: ProductUpdateManyWithoutOrdersInput;
   quantity?: number | null;
   totalPrice?: number | null;
 };

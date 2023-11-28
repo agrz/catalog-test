@@ -1,10 +1,11 @@
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
-import { ProductWhereUniqueInput } from "../product/ProductWhereUniqueInput";
+import { ProductCreateNestedManyWithoutOrdersInput } from "./ProductCreateNestedManyWithoutOrdersInput";
 
 export type OrderCreateInput = {
   customer?: CustomerWhereUniqueInput | null;
   discount?: number | null;
-  product?: ProductWhereUniqueInput | null;
+  priority?: boolean | null;
+  product?: ProductCreateNestedManyWithoutOrdersInput;
   quantity?: number | null;
   totalPrice?: number | null;
 };
